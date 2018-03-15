@@ -19,7 +19,8 @@ function getKeyUp (e) {
   var xUpper = x.toUpperCase();
 
   console.log("Release: " + x + " | " + x.toUpperCase());
-
+  
+  delete keys[x];
   delete keys[xLower];
   delete keys[xUpper];
 }
