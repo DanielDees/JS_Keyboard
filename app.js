@@ -38,21 +38,21 @@ function getKeyReleased (e) {
   if (e.which == 40 || e.keyCode == 40) { keyButton = "D_ARROW"; } 
   //DELETE KEY (e.which 8 && e.keyCode 8)
   if ((e.which == 8 || e.keyCode == 8)) { keyButton = "DELETE"; }
+  //SHIFT Key
+  if (e.which == 16 || e.keyCode == 16) { keyButton = "SHIFT" };
+  //CTRL Key
+  if (e.which == 17 || e.keyCode == 17) { keyButton = "CTRL" }
+  //ALT Key
+  if (e.which == 18 || e.keyCode == 18) { keyButton = "ALT" }
 
   //Show key un-pressed
   //console.log("Un-pressed: " + keyButton);
 
   //Remove lower case of key
-  keys[keyButton] = false;
+  delete keys[keyButton.toLowerCase()];
   //Remove upper case of key
-  keys[(keyButton.toUpperCase())] = false;
+  delete keys[(keyButton.toUpperCase())];
 
-  //SHIFT Key
-  if (e.which == 16 || e.keyCode == 16) { keys.SHIFT = false; };
-  //CTRL Key
-  if (e.which == 17 || e.keyCode == 17) { keys.CTRL = false; keys.ctrl = false; }
-  //ALT Key
-  if (e.which == 18 || e.keyCode == 18) { keys.ALT = false; keys.alt = false; }
 }
 
 function getKeyPressed (e) {
@@ -77,17 +77,15 @@ function keyClick (e) {
   //SHIFT KEY (e.shiftkey) || e.which / e.keyCode 16 onKeyDown only
   if (e.which == 16 || e.keyCode == 16) { 
     keyButton = "SHIFT"; 
-    keys.SHIFT = true; 
+    keys.SHIFT = true;
   }
   //CTRL Key
   if (e.which == 17 || e.keyCode == 17) { 
-    keyButton = "ctrl";
-    keys.ctrl = true; 
+    keyButton = "CTRL"; 
   }
   //ALT Key
   if (e.which == 18 || e.keyCode == 18) { 
-    keyButton = "alt";
-    keys.alt = true;
+    keyButton = "ALT";
   }
 
   //Handle Capitalization
@@ -143,11 +141,8 @@ function showKeysArray() {
     
     ctx.fillText("Keys Array: " + rowKeys, 40, 100 + (20 * row));
     
-    if (i == 3) { 
-      rowKeys = "";
-      row++; 
-      i = 0; 
-    }
+    //Move to next row
+    if (i == 3) { rowKeys = ""; row++; i = 0; }
   }
 
   str = "";
@@ -161,6 +156,7 @@ function displayKeysPressed() {
   ctx.font = "18px Arial";
 
   showKeys();
+  showKeysArray();
 }
 
 //Refresh Rate
