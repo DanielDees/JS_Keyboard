@@ -13,17 +13,21 @@ var keys = {};
 
 //Still need to handle issues with capitalization
 function getKeyUp (e) {
-  delete keys[e.key];
+
+  var x = e.key;
+  var xLower = x.toLowerCase();
+  var xUpper = x.toUpperCase();
+
+  console.log("Release: " + x + " | " + x.toUpperCase());
+
+  delete keys[xLower];
+  delete keys[xUpper];
 }
 
 function keyClick (e) {
-
   keys[e.key] = true;
-
-  //Log key pressed
-  console.log("Pressed: " + e.key);
-
   e.preventDefault();
+  //console.log("Pressed: " + e.key);
 }
 
 function showKeys() {
