@@ -14,6 +14,8 @@ document.onkeyup = getKeyReleased;
 //Hold Key Value ================
 var keyButton = "";
 var str = "";
+var row = 0;
+var rowheight = 30;
 
 //Keys Pressed ================
 var keys = {};
@@ -120,29 +122,41 @@ function keyClick (e) {
 
 
 function showKeys() {
-  for (key in keys) { 
-    if (keys[key] == true) { str += key + " + "; } 
-  }
 
-  ctx.fillText("Keys Pressed: " + str, 40, 40);
-  str = "";
-}
-function showKeysArray() {
-
-  var row = 0;
   var rowKeys = "";
   var i = 0;
 
   //Show Keys array
   for (key in keys) { 
 
-    rowKeys += key + " + ";
-    i++;
+    if (keys[key]) {
+      rowKeys += key + "  ";
+      i++;
+    }
     
-    ctx.fillText("Keys Array: " + rowKeys, 40, 100 + (20 * row));
+    ctx.fillText("Keys Pressed:  " + rowKeys, 40, 40 + (rowheight * row));
     
     //Move to next row
     if (i == 3) { rowKeys = ""; row++; i = 0; }
+  }
+
+  str = "";
+}
+function showKeysArray() {
+
+  var rowKeys = "";
+  var i = 0;
+
+  //Show Keys array
+  for (key in keys) { 
+
+    rowKeys += key + "  ";
+    i++;
+    
+    ctx.fillText("Keys Array:  " + rowKeys, 40, 100 + (rowheight * row));
+    
+    //Move to next row
+    if (i == 2) { rowKeys = ""; row++; i = 0; }
   }
 
   str = "";
@@ -155,8 +169,9 @@ function displayKeysPressed() {
   ctx.fillStyle = "#0FF";
   ctx.font = "18px Arial";
 
+  row = 0;
   showKeys();
-  showKeysArray();
+  //showKeysArray();
 }
 
 //Refresh Rate
